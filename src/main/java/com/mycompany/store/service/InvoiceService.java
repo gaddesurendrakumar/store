@@ -54,7 +54,7 @@ public class InvoiceService {
                     (AuthoritiesConstants.ADMIN)) {
                     return invoiceRepository.findAll(pageable);
                 } else
-                    return invoiceRepository.findAllByCustomerUserLogin(
+                    return invoiceRepository.findAllByOrderCustomerUserLogin(
                         SecurityUtils.getCurrentUserLogin().get(),
                         pageable
                     );
@@ -76,7 +76,7 @@ public class InvoiceService {
             return invoiceRepository.findById(id);
         } else
             return invoiceRepository.
-                findOneByIdAndCustomerUserLogin(id,SecurityUtils.getCurrentUserLogin().get());
+                findOneByIdAndOrderCustomerUserLogin(id,SecurityUtils.getCurrentUserLogin().get());
     }
 
     /**

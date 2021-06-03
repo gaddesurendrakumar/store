@@ -54,7 +54,7 @@ public class ShipmentService {
             (AuthoritiesConstants.ADMIN)) {
             return shipmentRepository.findAll(pageable);
         } else
-            return shipmentRepository.findAllByCustomerUserLogin(
+            return shipmentRepository.findAllByInvoiceOrderCustomerUserLogin(
                 SecurityUtils.getCurrentUserLogin().get(),
                 pageable
             );
@@ -76,7 +76,7 @@ public class ShipmentService {
             return shipmentRepository.findById(id);
         } else
             return shipmentRepository.
-                findOneByIdAndCustomerUserLogin(id,SecurityUtils.getCurrentUserLogin().get());
+                findAllByIdAndInvoiceOrderCustomerUserLogin(id,SecurityUtils.getCurrentUserLogin().get());
     }
 
     /**

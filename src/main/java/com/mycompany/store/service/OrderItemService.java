@@ -54,7 +54,7 @@ public class OrderItemService {
             (AuthoritiesConstants.ADMIN)) {
             return orderItemRepository.findAll(pageable);
         } else
-            return orderItemRepository.findAllByCustomerUserLogin(
+            return orderItemRepository.findAllByOrderCustomerUserLogin(
                 SecurityUtils.getCurrentUserLogin().get(),
                 pageable
             );
@@ -76,7 +76,7 @@ public class OrderItemService {
             return orderItemRepository.findById(id);
         } else
             return orderItemRepository.
-                findOneByIdAndCustomerUserLogin(id,SecurityUtils.getCurrentUserLogin().get());
+                findOneByIdAndOrderCustomerUserLogin(id,SecurityUtils.getCurrentUserLogin().get());
     }
 
     /**

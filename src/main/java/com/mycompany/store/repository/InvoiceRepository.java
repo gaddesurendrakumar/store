@@ -15,7 +15,8 @@ import java.util.Optional;
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Long> {
 
-    Page<Invoice> findAllByCustomerUserLogin(String s, Pageable pageable);
 
-    Optional<Invoice> findOneByIdAndCustomerUserLogin(Long id, String s);
+    Page<Invoice> findAllByOrderCustomerUserLogin(String s, Pageable pageable);
+
+    Optional<Invoice> findOneByIdAndOrderCustomerUserLogin(Long id, String s);
 }
