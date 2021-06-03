@@ -2,6 +2,8 @@ package com.mycompany.store.service;
 
 import com.mycompany.store.domain.Shipment;
 import com.mycompany.store.repository.ShipmentRepository;
+import com.mycompany.store.security.AuthoritiesConstants;
+import com.mycompany.store.security.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,7 +49,15 @@ public class ShipmentService {
     @Transactional(readOnly = true)
     public Page<Shipment> findAll(Pageable pageable) {
         log.debug("Request to get all Shipments");
-        return shipmentRepository.findAll(pageable);
+        //return shipmentRepository.findAll(pageable);
+        if (SecurityUtils.isCurrentUserInRole
+            (AuthoritiesConstants.ADMIN)) {
+            return shipmentRepository.findAll(pageable);
+        } else
+            return shipmentRepository.findAllByCustomerUserLogin(
+                SecurityUtils.getCurrentUserLogin().get(),
+                pageable
+            );
     }
 
 
@@ -60,7 +70,13 @@ public class ShipmentService {
     @Transactional(readOnly = true)
     public Optional<Shipment> findOne(Long id) {
         log.debug("Request to get Shipment : {}", id);
-        return shipmentRepository.findById(id);
+        //return shipmentRepository.findById(id);
+        if (SecurityUtils.isCurrentUserInRole
+            (AuthoritiesConstants.ADMIN)) {
+            return shipmentRepository.findById(id);
+        } else
+            return shipmentRepository.
+                findOneByIdAndCustomerUserLogin(id,SecurityUtils.getCurrentUserLogin().get());
     }
 
     /**
