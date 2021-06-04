@@ -74,9 +74,10 @@ public class OrderItemService {
         if (SecurityUtils.isCurrentUserInRole
             (AuthoritiesConstants.ADMIN)) {
             return orderItemRepository.findById(id);
-        } else
+        } else {
             return orderItemRepository.
-                findOneByIdAndOrderCustomerUserLogin(id,SecurityUtils.getCurrentUserLogin().get());
+                findOneByIdAndOrderCustomerUserLogin(id, SecurityUtils.getCurrentUserLogin().get());
+        }
     }
 
     /**
